@@ -37,7 +37,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── NOISE TEXTURE OVERLAY ─── */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -111,8 +110,13 @@
     }
     .hero-inner {
       position: relative; z-index: 1;
-      max-width: 1200px; margin: 0 auto; width: 100%;
+      max-width: 1280px; margin: 0 auto; width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
     }
+    .hero-text { display: flex; flex-direction: column; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
@@ -125,20 +129,78 @@
     }
     .hero-h1 {
       font-family: var(--serif);
-      font-size: clamp(3.2rem, 7vw, 6.5rem);
+      font-size: clamp(3rem, 5.5vw, 5.8rem);
       line-height: 1.05; letter-spacing: -0.01em;
       color: var(--white); font-weight: 400;
-      max-width: 780px; margin-bottom: 28px;
+      max-width: 680px; margin-bottom: 28px;
     }
-    .hero-h1 em {
-      font-style: italic; color: var(--gold-lt);
-    }
+    .hero-h1 em { font-style: italic; color: var(--gold-lt); }
     .hero-sub {
       font-size: 1.05rem; line-height: 1.75;
       color: var(--slate); max-width: 480px;
       margin-bottom: 48px; font-weight: 300;
     }
     .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    /* Hero globe visual */
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-visual svg {
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+      filter: drop-shadow(0 0 60px rgba(201,168,76,0.08));
+    }
+
+    /* Globe pulse animations */
+    @keyframes pulse-node {
+      0%, 100% { opacity: 0.6; r: 3; }
+      50% { opacity: 1; r: 5; }
+    }
+    @keyframes pulse-node-lg {
+      0%, 100% { opacity: 0.8; r: 5; }
+      50% { opacity: 1; r: 7; }
+    }
+    @keyframes orbit-dash {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -200; }
+    }
+    @keyframes data-flow {
+      0% { opacity: 0; stroke-dashoffset: 100; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; stroke-dashoffset: 0; }
+    }
+    @keyframes globe-glow {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.28; }
+    }
+    @keyframes float-panel {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes count-up {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+    .node-pulse-1 { animation: pulse-node 2.4s ease-in-out infinite; }
+    .node-pulse-2 { animation: pulse-node 3.1s ease-in-out infinite 0.6s; }
+    .node-pulse-3 { animation: pulse-node 2.7s ease-in-out infinite 1.2s; }
+    .node-pulse-4 { animation: pulse-node 3.5s ease-in-out infinite 0.3s; }
+    .node-pulse-5 { animation: pulse-node 2.2s ease-in-out infinite 1.8s; }
+    .node-pulse-6 { animation: pulse-node 3.0s ease-in-out infinite 0.9s; }
+    .node-pulse-lg { animation: pulse-node-lg 3s ease-in-out infinite; }
+    .orbit-anim { animation: orbit-dash 8s linear infinite; }
+    .orbit-anim-2 { animation: orbit-dash 12s linear infinite reverse; }
+    .flow-1 { animation: data-flow 3s ease-in-out infinite; }
+    .flow-2 { animation: data-flow 3s ease-in-out infinite 1s; }
+    .flow-3 { animation: data-flow 3s ease-in-out infinite 2s; }
+    .globe-glow-anim { animation: globe-glow 4s ease-in-out infinite; }
+    .float-panel { animation: float-panel 5s ease-in-out infinite; }
+    .float-panel-2 { animation: float-panel 6s ease-in-out infinite 2s; }
+
     .btn-gold {
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 0.88rem; font-weight: 500;
@@ -203,7 +265,6 @@
     }
     .stats-grid {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      divide: var(--white-mid);
     }
     .stat-item {
       padding: 48px 40px;
@@ -219,6 +280,64 @@
     .stat-label { font-size: 0.82rem; color: var(--slate); letter-spacing: 0.04em; font-weight: 400; }
 
     /* ─── SERVICES ─── */
+    .services-section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 60px;
+    }
+    .services-visual {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--white-mid);
+      background: var(--ink-3);
+    }
+    .services-visual svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Services SVG animations */
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    @keyframes slide-in-bar {
+      from { width: 0; }
+      to { width: var(--bar-w, 100%); }
+    }
+    @keyframes typing {
+      from { clip-path: inset(0 100% 0 0); }
+      to { clip-path: inset(0 0% 0 0); }
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes progress-fill {
+      from { stroke-dasharray: 0 251; }
+      to { stroke-dasharray: var(--arc, 188) 251; }
+    }
+    @keyframes ping {
+      0% { r: 4; opacity: 0.8; }
+      100% { r: 12; opacity: 0; }
+    }
+    @keyframes dot-move {
+      0% { offset-distance: 0%; }
+      100% { offset-distance: 100%; }
+    }
+    .cursor-blink { animation: blink-cursor 1s step-end infinite; }
+    .progress-arc { animation: progress-fill 2s ease-out forwards; }
+    .ping-anim { animation: ping 2s ease-out infinite; }
+    .ping-anim-2 { animation: ping 2s ease-out infinite 0.7s; }
+    .ping-anim-3 { animation: ping 2s ease-out infinite 1.4s; }
+    .fade-up-1 { animation: fade-in-up 0.6s ease-out 0.3s both; }
+    .fade-up-2 { animation: fade-in-up 0.6s ease-out 0.6s both; }
+    .fade-up-3 { animation: fade-in-up 0.6s ease-out 0.9s both; }
+
     .services-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 1px; background: var(--white-mid);
@@ -629,44 +748,6 @@
       background: var(--white); margin: 5px 0; transition: all 0.3s;
     }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .packages-grid { grid-template-columns: 1fr; }
-      .package-card.featured { transform: none; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-    }
-    @media (max-width: 768px) {
-      #nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      #hamburger { display: flex; flex-direction: column; }
-      .section { padding: 70px 20px; }
-      .section-sm { padding: 48px 20px; }
-      .hero { padding: 100px 20px 60px; }
-      .hero-trust { left: 20px; right: 20px; bottom: 20px; gap: 20px; }
-      .two-col { grid-template-columns: 1fr; gap: 40px; }
-      .two-col.reverse { direction: ltr; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: 1fr; }
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item { padding: 32px 24px; }
-      .flag-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .hero-h1 { font-size: 2.6rem; }
-      .hero-actions { flex-direction: column; align-items: flex-start; }
-      .services-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .stat-item { border-right: none; }
-      .team-grid { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
-    }
-
     /* ─── TICKER ─── */
     .ticker-wrap {
       overflow: hidden; background: var(--ink-2);
@@ -699,13 +780,81 @@
     }
     .highlight-box i { color: var(--gold); margin-top: 2px; }
     .highlight-box p { font-size: 0.83rem; color: var(--slate-lt); line-height: 1.7; font-weight: 300; }
+
+    /* ─── LARGE SCREEN CONSTRAINT ─── */
+    @media (min-width: 1440px) {
+      .hero-inner { max-width: 1360px; }
+      .container { max-width: 1280px; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { order: -1; max-width: 520px; margin: 0 auto; }
+      .hero-h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); }
+      .services-section-inner { grid-template-columns: 1fr; gap: 40px; }
+      .services-visual { max-width: 100%; }
+    }
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .packages-grid { grid-template-columns: 1fr; }
+      .package-card.featured { transform: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+    }
+    @media (max-width: 768px) {
+      #nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      #hamburger { display: flex; flex-direction: column; }
+      .section { padding: 70px 20px; }
+      .section-sm { padding: 48px 20px; }
+      .hero { padding: 100px 20px 120px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero-visual { order: -1; width: 100%; max-width: 400px; margin: 0 auto; }
+      .hero-h1 { font-size: clamp(2.4rem, 7vw, 3.5rem); }
+      .hero-sub { font-size: 0.95rem; }
+      .hero-trust { left: 20px; right: 20px; bottom: 20px; gap: 16px; position: relative; margin-top: 32px; }
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .two-col.reverse { direction: ltr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { padding: 32px 24px; }
+      .flag-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-section-inner { grid-template-columns: 1fr; }
+      .cta-section { padding: 70px 20px; }
+      footer { padding: 48px 20px 24px; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 90px 16px 32px; }
+      .hero-h1 { font-size: 2.4rem; }
+      .hero-actions { flex-direction: column; align-items: flex-start; width: 100%; }
+      .hero-actions .btn-gold,
+      .hero-actions .btn-outline { width: 100%; justify-content: center; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; }
+      .team-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .flag-grid { grid-template-columns: 1fr; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .hero-trust { display: none; }
+      .section { padding: 56px 16px; }
+      .container { padding: 0; }
+    }
+    @media (max-width: 360px) {
+      .hero-h1 { font-size: 2rem; }
+      .stat-num { font-size: 2.4rem; }
+    }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-     NAVBAR
-═══════════════════════════════ -->
+<!-- NAVBAR -->
 <header id="nav">
   <a class="nav-logo" href="#">
     <div class="nav-logo-dot"></div>
@@ -740,41 +889,300 @@
 </div>
 
 
-<!-- ═══════════════════════════════
-     HERO
-═══════════════════════════════ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-grid-bg"></div>
   <div class="hero-radial"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow" data-reveal>
-      Africa's Premier Venture Design Studio
+    <!-- TEXT COLUMN -->
+    <div class="hero-text">
+      <div class="hero-eyebrow" data-reveal>
+        Africa's Premier Venture Design Studio
+      </div>
+      <h1 class="hero-h1" data-reveal data-delay="1">
+        We Build<br>
+        <em>World-Class</em><br>
+        Digital Ventures
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        From idea validation to full-stack development and go-to-market execution — we partner with founders and enterprises to ship products that grow.
+      </p>
+      <div class="hero-actions" data-reveal data-delay="3">
+        <a href="#contact" class="btn-gold">Start Your Project <i class="fas fa-arrow-right" style="font-size:0.72rem"></i></a>
+        <a href="#work" class="btn-outline">View Our Work</a>
+      </div>
+      <div class="hero-trust" data-reveal data-delay="4" style="position:relative;bottom:auto;left:auto;right:auto;margin-top:48px;">
+        <div class="hero-trust-item"><i class="fas fa-circle"></i> 500+ Companies Served</div>
+        <div class="hero-trust-item"><i class="fas fa-circle"></i> 50M+ Users Reached</div>
+        <div class="hero-trust-item"><i class="fas fa-circle"></i> 98% Client Satisfaction</div>
+        <div class="hero-trust-item"><i class="fas fa-circle"></i> 12-Week Delivery Guarantee</div>
+      </div>
     </div>
-    <h1 class="hero-h1" data-reveal data-delay="1">
-      We Build<br>
-      <em>World-Class</em><br>
-      Digital Ventures
-    </h1>
-    <p class="hero-sub" data-reveal data-delay="2">
-      From idea validation to full-stack development and go-to-market execution — we partner with founders and enterprises to ship products that grow.
-    </p>
-    <div class="hero-actions" data-reveal data-delay="3">
-      <a href="#contact" class="btn-gold">Start Your Project <i class="fas fa-arrow-right" style="font-size:0.72rem"></i></a>
-      <a href="#work" class="btn-outline">View Our Work</a>
+
+    <!-- GLOBE VISUAL COLUMN -->
+    <div class="hero-visual" data-reveal="right" data-delay="2">
+      <svg viewBox="0 0 560 500" xmlns="http://www.w3.org/2000/svg" aria-label="Global technology network visualization" role="img">
+        <defs>
+          <!-- Globe gradient -->
+          <radialGradient id="globeGrad" cx="45%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#1a2340"/>
+            <stop offset="60%" stop-color="#0d1020"/>
+            <stop offset="100%" stop-color="#080a12"/>
+          </radialGradient>
+          <!-- Gold glow gradient -->
+          <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Outer ring glow -->
+          <radialGradient id="ringGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="70%" stop-color="#C9A84C" stop-opacity="0"/>
+            <stop offset="90%" stop-color="#C9A84C" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Blue node glow -->
+          <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#4A8FE8" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#4A8FE8" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Gold node glow -->
+          <radialGradient id="goldNodeGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Clip for globe -->
+          <clipPath id="globeClip">
+            <circle cx="250" cy="240" r="168"/>
+          </clipPath>
+          <!-- Line gradient for connections -->
+          <linearGradient id="connGold" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#C9A84C" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="connBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4A8FE8" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#4A8FE8" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#4A8FE8" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Outer ambient glow -->
+        <circle cx="250" cy="240" r="210" fill="url(#glowGrad)" class="globe-glow-anim"/>
+
+        <!-- Ring glow -->
+        <circle cx="250" cy="240" r="185" fill="url(#ringGlow)"/>
+
+        <!-- Orbit rings -->
+        <ellipse cx="250" cy="240" rx="185" ry="185" fill="none" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.15"/>
+        <ellipse cx="250" cy="240" rx="175" ry="68" fill="none" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.2" stroke-dasharray="6 4"/>
+        <ellipse cx="250" cy="240" rx="168" ry="168" fill="none" stroke="#C9A84C" stroke-width="0.3" stroke-opacity="0.12" stroke-dasharray="3 3"
+          class="orbit-anim"/>
+        <ellipse cx="250" cy="240" rx="140" ry="55" fill="none" stroke="#4A8FE8" stroke-width="0.4" stroke-opacity="0.15" stroke-dasharray="4 6"
+          class="orbit-anim-2"/>
+
+        <!-- Globe sphere -->
+        <circle cx="250" cy="240" r="168" fill="url(#globeGrad)"/>
+
+        <!-- Globe border -->
+        <circle cx="250" cy="240" r="168" fill="none" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.35"/>
+
+        <!-- Grid lines on globe (latitude) -->
+        <g clip-path="url(#globeClip)" stroke="#8A90A8" stroke-opacity="0.12" stroke-width="0.5" fill="none">
+          <ellipse cx="250" cy="240" rx="168" ry="30"/>
+          <ellipse cx="250" cy="240" rx="168" ry="70"/>
+          <ellipse cx="250" cy="240" rx="168" ry="110"/>
+          <ellipse cx="250" cy="240" rx="168" ry="150"/>
+        </g>
+
+        <!-- Grid lines on globe (longitude) -->
+        <g clip-path="url(#globeClip)" stroke="#8A90A8" stroke-opacity="0.1" stroke-width="0.5" fill="none">
+          <line x1="250" y1="72" x2="250" y2="408"/>
+          <line x1="82" y1="240" x2="418" y2="240"/>
+          <line x1="140" y1="84" x2="360" y2="396"/>
+          <line x1="360" y1="84" x2="140" y2="396"/>
+        </g>
+
+        <!-- Continent silhouettes (simplified shapes) -->
+        <g clip-path="url(#globeClip)" fill="#1e2d4a" fill-opacity="0.7">
+          <!-- Africa -->
+          <path d="M228 195 L242 190 L258 193 L265 205 L268 225 L264 248 L258 268 L250 280 L242 275 L234 260 L228 240 L222 220 Z"/>
+          <!-- Europe -->
+          <path d="M210 155 L220 148 L235 145 L248 150 L250 162 L240 168 L225 170 L212 165 Z"/>
+          <!-- North America -->
+          <path d="M142 148 L165 138 L185 140 L195 155 L192 175 L178 188 L160 190 L145 178 L138 162 Z"/>
+          <!-- South America -->
+          <path d="M165 215 L178 208 L190 215 L195 235 L192 258 L183 272 L172 268 L163 250 L158 230 Z"/>
+          <!-- Asia -->
+          <path d="M280 145 L305 138 L330 142 L348 155 L352 172 L340 185 L318 192 L298 188 L280 175 L272 160 Z"/>
+          <!-- Australia -->
+          <path d="M320 265 L338 258 L352 263 L355 278 L348 290 L332 292 L318 285 L312 272 Z"/>
+        </g>
+
+        <!-- Continent highlight overlay -->
+        <g clip-path="url(#globeClip)" fill="#C9A84C" fill-opacity="0.04">
+          <path d="M228 195 L242 190 L258 193 L265 205 L268 225 L264 248 L258 268 L250 280 L242 275 L234 260 L228 240 L222 220 Z"/>
+          <path d="M280 145 L305 138 L330 142 L348 155 L352 172 L340 185 L318 192 L298 188 L280 175 L272 160 Z"/>
+        </g>
+
+        <!-- Globe ambient atmosphere -->
+        <circle cx="250" cy="240" r="168" fill="none" stroke="#C9A84C" stroke-width="4" stroke-opacity="0.04"/>
+        <circle cx="250" cy="240" r="172" fill="none" stroke="#C9A84C" stroke-width="2" stroke-opacity="0.06"/>
+
+        <!-- ─── NETWORK NODES AND CONNECTIONS ─── -->
+
+        <!-- Major hub: Lagos / Africa (on globe edge, right) -->
+        <circle cx="268" cy="236" r="14" fill="#C9A84C" fill-opacity="0.08"/>
+        <circle cx="268" cy="236" r="20" fill="url(#goldNodeGlow)" class="ping-anim"/>
+        <circle cx="268" cy="236" r="6" fill="#C9A84C" class="node-pulse-lg"/>
+        <circle cx="268" cy="236" r="3" fill="#E8C96A"/>
+
+        <!-- Node: Lagos label -->
+        <text x="278" y="227" font-family="'DM Sans', sans-serif" font-size="9" fill="#C9A84C" fill-opacity="0.9" letter-spacing="0.05em">LAGOS</text>
+
+        <!-- Node: London -->
+        <circle cx="220" cy="148" r="10" fill="#4A8FE8" fill-opacity="0.08"/>
+        <circle cx="220" cy="148" r="16" fill="url(#nodeGlow)" class="ping-anim-2"/>
+        <circle cx="220" cy="148" r="4" fill="#4A8FE8" class="node-pulse-1"/>
+        <circle cx="220" cy="148" r="2" fill="#7DB3F0"/>
+        <text x="226" y="143" font-family="'DM Sans', sans-serif" font-size="9" fill="#7DB3F0" fill-opacity="0.85" letter-spacing="0.05em">LONDON</text>
+
+        <!-- Node: New York -->
+        <circle cx="158" cy="172" r="10" fill="#4A8FE8" fill-opacity="0.08"/>
+        <circle cx="158" cy="172" r="16" fill="url(#nodeGlow)" class="ping-anim-3"/>
+        <circle cx="158" cy="172" r="4" fill="#4A8FE8" class="node-pulse-2"/>
+        <circle cx="158" cy="172" r="2" fill="#7DB3F0"/>
+        <text x="164" y="167" font-family="'DM Sans', sans-serif" font-size="8" fill="#7DB3F0" fill-opacity="0.85" letter-spacing="0.05em">NEW YORK</text>
+
+        <!-- Node: Dubai -->
+        <circle cx="315" cy="185" r="8" fill="#C9A84C" fill-opacity="0.1"/>
+        <circle cx="315" cy="185" r="4" fill="#C9A84C" class="node-pulse-3"/>
+        <circle cx="315" cy="185" r="2" fill="#E8C96A"/>
+        <text x="321" y="181" font-family="'DM Sans', sans-serif" font-size="8" fill="#C9A84C" fill-opacity="0.8" letter-spacing="0.05em">DUBAI</text>
+
+        <!-- Node: Singapore -->
+        <circle cx="345" cy="232" r="8" fill="#C9A84C" fill-opacity="0.1"/>
+        <circle cx="345" cy="232" r="4" fill="#C9A84C" class="node-pulse-4"/>
+        <circle cx="345" cy="232" r="2" fill="#E8C96A"/>
+        <text x="351" y="228" font-family="'DM Sans', sans-serif" font-size="8" fill="#C9A84C" fill-opacity="0.8" letter-spacing="0.05em">SINGAPORE</text>
+
+        <!-- Node: Nairobi -->
+        <circle cx="290" cy="258" r="6" fill="#4A8FE8" fill-opacity="0.1"/>
+        <circle cx="290" cy="258" r="3" fill="#4A8FE8" class="node-pulse-5"/>
+        <circle cx="290" cy="258" r="1.5" fill="#7DB3F0"/>
+        <text x="296" y="254" font-family="'DM Sans', sans-serif" font-size="8" fill="#7DB3F0" fill-opacity="0.75" letter-spacing="0.05em">NAIROBI</text>
+
+        <!-- Node: Accra -->
+        <circle cx="225" cy="248" r="6" fill="#4A8FE8" fill-opacity="0.1"/>
+        <circle cx="225" cy="248" r="3" fill="#4A8FE8" class="node-pulse-6"/>
+        <circle cx="225" cy="248" r="1.5" fill="#7DB3F0"/>
+        <text x="204" y="259" font-family="'DM Sans', sans-serif" font-size="8" fill="#7DB3F0" fill-opacity="0.75" letter-spacing="0.05em">ACCRA</text>
+
+        <!-- Connection lines between nodes (inside globe) -->
+        <!-- Lagos → London -->
+        <path d="M265 233 Q248 190 223 151" fill="none" stroke="url(#connGold)" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="4 3" class="flow-1"/>
+        <!-- Lagos → New York -->
+        <path d="M265 238 Q220 210 161 174" fill="none" stroke="url(#connBlue)" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="3 4" class="flow-2"/>
+        <!-- Lagos → Dubai -->
+        <path d="M270 234 Q292 210 313 187" fill="none" stroke="url(#connGold)" stroke-width="0.8" stroke-opacity="0.45" stroke-dasharray="4 3" class="flow-3"/>
+        <!-- Lagos → Singapore -->
+        <path d="M271 237 Q308 235 343 233" fill="none" stroke="url(#connGold)" stroke-width="0.7" stroke-opacity="0.35" stroke-dasharray="3 5" class="flow-1"/>
+        <!-- London → New York -->
+        <path d="M217 151 Q190 155 161 170" fill="none" stroke="url(#connBlue)" stroke-width="0.7" stroke-opacity="0.35" stroke-dasharray="4 4" class="flow-2"/>
+        <!-- Lagos → Nairobi -->
+        <path d="M270 240 Q280 249 288 256" fill="none" stroke="url(#connBlue)" stroke-width="0.8" stroke-opacity="0.4" stroke-dasharray="2 3"/>
+        <!-- Lagos → Accra -->
+        <path d="M265 241 Q247 247 228 248" fill="none" stroke="url(#connBlue)" stroke-width="0.7" stroke-opacity="0.4" stroke-dasharray="2 3"/>
+        <!-- Dubai → Singapore -->
+        <path d="M317 188 Q330 210 343 230" fill="none" stroke="url(#connGold)" stroke-width="0.6" stroke-opacity="0.3" stroke-dasharray="3 4"/>
+
+        <!-- ─── FLOATING INFO PANELS ─── -->
+
+        <!-- Panel 1: "Global Reach" — top right -->
+        <g class="float-panel" style="transform-origin: 430px 100px">
+          <rect x="390" y="68" width="148" height="60" rx="8"
+            fill="#0D1020" stroke="#C9A84C" stroke-width="0.8" stroke-opacity="0.4"/>
+          <!-- Leader line to globe -->
+          <line x1="390" y1="98" x2="360" y2="150" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="3 3"/>
+          <!-- Dot at globe end -->
+          <circle cx="360" cy="150" r="2" fill="#C9A84C" fill-opacity="0.4"/>
+
+          <text x="406" y="89" font-family="'DM Sans', sans-serif" font-size="8" fill="#C9A84C" fill-opacity="0.7" letter-spacing="0.12em">GLOBAL REACH</text>
+          <text x="406" y="106" font-family="'Instrument Serif', serif" font-size="20" fill="#F4F2EE">6</text>
+          <text x="420" y="106" font-family="'Instrument Serif', serif" font-size="14" fill="#C9A84C">+</text>
+          <text x="430" y="107" font-family="'DM Sans', sans-serif" font-size="9" fill="#8A90A8">continents</text>
+          <text x="406" y="121" font-family="'DM Sans', sans-serif" font-size="8.5" fill="#8A90A8" fill-opacity="0.8">Clients in 40+ countries</text>
+        </g>
+
+        <!-- Panel 2: "Products Launched" — bottom right -->
+        <g class="float-panel-2" style="transform-origin: 430px 370px">
+          <rect x="388" y="340" width="152" height="58" rx="8"
+            fill="#0D1020" stroke="#4A8FE8" stroke-width="0.8" stroke-opacity="0.4"/>
+          <!-- Leader line -->
+          <line x1="388" y1="369" x2="348" y2="310" stroke="#4A8FE8" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="3 3"/>
+          <circle cx="348" cy="310" r="2" fill="#4A8FE8" fill-opacity="0.4"/>
+
+          <text x="404" y="360" font-family="'DM Sans', sans-serif" font-size="8" fill="#4A8FE8" fill-opacity="0.8" letter-spacing="0.12em">PRODUCTS LIVE</text>
+          <text x="404" y="377" font-family="'Instrument Serif', serif" font-size="20" fill="#F4F2EE">500</text>
+          <text x="440" y="377" font-family="'Instrument Serif', serif" font-size="14" fill="#C9A84C">+</text>
+          <text x="404" y="390" font-family="'DM Sans', sans-serif" font-size="8.5" fill="#8A90A8" fill-opacity="0.8">companies served globally</text>
+        </g>
+
+        <!-- Panel 3: "12-Week Delivery" — left side -->
+        <g class="float-panel" style="transform-origin: 50px 290px">
+          <rect x="8" y="265" width="130" height="55" rx="8"
+            fill="#0D1020" stroke="#C9A84C" stroke-width="0.8" stroke-opacity="0.3"/>
+          <!-- Leader line -->
+          <line x1="138" y1="292" x2="170" y2="268" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.25" stroke-dasharray="3 3"/>
+          <circle cx="170" cy="268" r="2" fill="#C9A84C" fill-opacity="0.35"/>
+
+          <text x="22" y="284" font-family="'DM Sans', sans-serif" font-size="8" fill="#C9A84C" fill-opacity="0.7" letter-spacing="0.1em">DELIVERY TIME</text>
+          <text x="22" y="302" font-family="'Instrument Serif', serif" font-size="20" fill="#F4F2EE">12</text>
+          <text x="44" y="302" font-family="'DM Sans', sans-serif" font-size="10" fill="#8A90A8" dy="0"> weeks</text>
+          <text x="22" y="315" font-family="'DM Sans', sans-serif" font-size="8.5" fill="#8A90A8" fill-opacity="0.8">Idea to live product</text>
+        </g>
+
+        <!-- Small decorative nodes scattered outside globe for network feel -->
+        <!-- Far left node -->
+        <circle cx="42" cy="190" r="4" fill="#4A8FE8" fill-opacity="0.4" class="node-pulse-2"/>
+        <circle cx="42" cy="190" r="2" fill="#4A8FE8"/>
+        <!-- Connection to globe edge -->
+        <line x1="46" y1="190" x2="82" y2="200" stroke="#4A8FE8" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="2 3"/>
+
+        <!-- Far right upper node -->
+        <circle cx="510" cy="158" r="3.5" fill="#C9A84C" fill-opacity="0.4" class="node-pulse-3"/>
+        <circle cx="510" cy="158" r="1.5" fill="#C9A84C"/>
+        <!-- Connection to globe edge -->
+        <line x1="507" y1="160" x2="418" y2="185" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="2 3"/>
+
+        <!-- Far right lower node -->
+        <circle cx="496" cy="300" r="3" fill="#4A8FE8" fill-opacity="0.35" class="node-pulse-5"/>
+        <circle cx="496" cy="300" r="1.5" fill="#4A8FE8"/>
+        <line x1="493" y1="298" x2="418" y2="270" stroke="#4A8FE8" stroke-width="0.4" stroke-opacity="0.18" stroke-dasharray="2 3"/>
+
+        <!-- Far bottom node -->
+        <circle cx="250" cy="452" r="3" fill="#C9A84C" fill-opacity="0.35" class="node-pulse-6"/>
+        <circle cx="250" cy="452" r="1.5" fill="#C9A84C"/>
+        <line x1="250" y1="449" x2="250" y2="408" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.18" stroke-dasharray="2 3"/>
+
+        <!-- Top node -->
+        <circle cx="250" cy="38" r="3" fill="#4A8FE8" fill-opacity="0.35" class="node-pulse-1"/>
+        <circle cx="250" cy="38" r="1.5" fill="#4A8FE8"/>
+        <line x1="250" y1="41" x2="250" y2="72" stroke="#4A8FE8" stroke-width="0.4" stroke-opacity="0.18" stroke-dasharray="2 3"/>
+
+        <!-- Decorative scan line sweep -->
+        <line x1="82" y1="240" x2="418" y2="240" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.06"/>
+        <line x1="250" y1="72" x2="250" y2="408" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.06"/>
+
+        <!-- Bottom label -->
+        <text x="250" y="485" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9.5" fill="#8A90A8" fill-opacity="0.6" letter-spacing="0.16em">GLOBAL TECHNOLOGY NETWORK</text>
+      </svg>
     </div>
-  </div>
-  <div class="hero-trust" data-reveal data-delay="4">
-    <div class="hero-trust-item"><i class="fas fa-circle"></i> 500+ Companies Served</div>
-    <div class="hero-trust-item"><i class="fas fa-circle"></i> 50M+ Users Reached</div>
-    <div class="hero-trust-item"><i class="fas fa-circle"></i> 98% Client Satisfaction</div>
-    <div class="hero-trust-item"><i class="fas fa-circle"></i> 12-Week Delivery Guarantee</div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════════
-     TICKER
-═══════════════════════════════ -->
+<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track">
     <span class="ticker-item">Custom Software Development</span>
@@ -799,9 +1207,7 @@
 </div>
 
 
-<!-- ═══════════════════════════════
-     STATS
-═══════════════════════════════ -->
+<!-- STATS -->
 <div class="stats-band">
   <div class="stats-grid container" style="max-width:100%">
     <div class="stat-item" data-reveal>
@@ -824,12 +1230,11 @@
 </div>
 
 
-<!-- ═══════════════════════════════
-     SERVICES
-═══════════════════════════════ -->
+<!-- SERVICES -->
 <section class="section" id="services">
   <div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; flex-wrap:wrap; gap:24px">
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px; flex-wrap:wrap; gap:24px">
       <div>
         <div class="section-tag" data-reveal>What We Do</div>
         <h2 class="section-h2" data-reveal data-delay="1">Services that <em>ship</em><br>real results</h2>
@@ -838,7 +1243,252 @@
         End-to-end digital product capabilities — from first concept to live product with real users.
       </p>
     </div>
-    <div class="services-grid" data-reveal data-delay="1">
+
+    <!-- Visual + intro two-col -->
+    <div class="services-section-inner" data-reveal data-delay="1">
+      <!-- Left: premium services illustration -->
+      <div class="services-visual">
+        <svg viewBox="0 0 520 440" xmlns="http://www.w3.org/2000/svg" aria-label="Digital product engineering dashboard" role="img">
+          <defs>
+            <linearGradient id="svcBg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#111525"/>
+              <stop offset="100%" stop-color="#0d1020"/>
+            </linearGradient>
+            <linearGradient id="barGold" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C9A84C"/>
+              <stop offset="100%" stop-color="#E8C96A" stop-opacity="0.6"/>
+            </linearGradient>
+            <linearGradient id="barBlue" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#4A8FE8"/>
+              <stop offset="100%" stop-color="#7DB3F0" stop-opacity="0.6"/>
+            </linearGradient>
+            <linearGradient id="barGreen" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3DAA7E"/>
+              <stop offset="100%" stop-color="#5DCAA5" stop-opacity="0.6"/>
+            </linearGradient>
+            <linearGradient id="progressGold" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#E8C96A"/>
+              <stop offset="100%" stop-color="#C9A84C"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Background -->
+          <rect width="520" height="440" fill="url(#svcBg)"/>
+
+          <!-- Top bar -->
+          <rect width="520" height="48" fill="#0a0e1a"/>
+          <circle cx="24" cy="24" r="7" fill="#C9A84C" fill-opacity="0.9"/>
+          <text x="38" y="28" font-family="'Instrument Serif', serif" font-size="13" fill="#F4F2EE" fill-opacity="0.9">Tech Lab Studio</text>
+          <!-- Nav dots -->
+          <rect x="360" y="19" width="32" height="10" rx="5" fill="#1e2d4a"/>
+          <rect x="398" y="19" width="32" height="10" rx="5" fill="#C9A84C" fill-opacity="0.15"/>
+          <rect x="436" y="19" width="32" height="10" rx="5" fill="#1e2d4a"/>
+          <!-- Profile avatar -->
+          <circle cx="494" cy="24" r="10" fill="#1e2d4a" stroke="#C9A84C" stroke-width="0.8" stroke-opacity="0.4"/>
+          <text x="494" y="28" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#C9A84C">TL</text>
+
+          <!-- Left panel: Build progress -->
+          <rect x="16" y="64" width="148" height="360" rx="10" fill="#080a12" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.5"/>
+          <text x="30" y="86" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" letter-spacing="0.12em">PROJECT PHASES</text>
+
+          <!-- Phase items -->
+          <!-- Phase 1: Validate — complete -->
+          <rect x="26" y="96" width="124" height="36" rx="6" fill="#1a2340"/>
+          <circle cx="40" cy="114" r="7" fill="#3DAA7E" fill-opacity="0.2"/>
+          <circle cx="40" cy="114" r="3" fill="#3DAA7E"/>
+          <text x="52" y="111" font-family="'DM Sans', sans-serif" font-size="9" font-weight="500" fill="#F4F2EE" fill-opacity="0.9">Validate</text>
+          <text x="52" y="122" font-family="'DM Sans', sans-serif" font-size="8" fill="#3DAA7E">Complete ✓</text>
+
+          <!-- Phase 2: Design — complete -->
+          <rect x="26" y="138" width="124" height="36" rx="6" fill="#1a2340"/>
+          <circle cx="40" cy="156" r="7" fill="#3DAA7E" fill-opacity="0.2"/>
+          <circle cx="40" cy="156" r="3" fill="#3DAA7E"/>
+          <text x="52" y="153" font-family="'DM Sans', sans-serif" font-size="9" font-weight="500" fill="#F4F2EE" fill-opacity="0.9">UI/UX Design</text>
+          <text x="52" y="164" font-family="'DM Sans', sans-serif" font-size="8" fill="#3DAA7E">Complete ✓</text>
+
+          <!-- Phase 3: Build — active -->
+          <rect x="26" y="180" width="124" height="36" rx="6" fill="#1e2d4a" stroke="#C9A84C" stroke-width="0.8" stroke-opacity="0.5"/>
+          <circle cx="40" cy="198" r="7" fill="#C9A84C" fill-opacity="0.2"/>
+          <circle cx="40" cy="198" r="3" fill="#C9A84C" class="node-pulse-1"/>
+          <text x="52" y="195" font-family="'DM Sans', sans-serif" font-size="9" font-weight="500" fill="#C9A84C">Development</text>
+          <text x="52" y="206" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8">In progress…</text>
+
+          <!-- Phase 4: Launch -->
+          <rect x="26" y="222" width="124" height="36" rx="6" fill="#111525"/>
+          <circle cx="40" cy="240" r="7" fill="#ffffff" fill-opacity="0.04"/>
+          <circle cx="40" cy="240" r="3" fill="#8A90A8" fill-opacity="0.4"/>
+          <text x="52" y="237" font-family="'DM Sans', sans-serif" font-size="9" fill="#8A90A8">Launch &amp; GTM</text>
+          <text x="52" y="248" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" fill-opacity="0.6">Upcoming</text>
+
+          <!-- Mini stats -->
+          <rect x="26" y="272" width="55" height="50" rx="6" fill="#1a2340"/>
+          <text x="53" y="297" text-anchor="middle" font-family="'Instrument Serif', serif" font-size="18" fill="#C9A84C">98</text>
+          <text x="53" y="307" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#8A90A8">% satisfaction</text>
+
+          <rect x="87" y="272" width="55" height="50" rx="6" fill="#1a2340"/>
+          <text x="114" y="297" text-anchor="middle" font-family="'Instrument Serif', serif" font-size="18" fill="#4A8FE8">12</text>
+          <text x="114" y="307" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#8A90A8">week delivery</text>
+
+          <!-- Tech stack tags -->
+          <text x="30" y="344" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" letter-spacing="0.1em">TECH STACK</text>
+          <rect x="26" y="352" width="36" height="18" rx="4" fill="#1e2d4a"/>
+          <text x="44" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#61DAFB">React</text>
+          <rect x="68" y="352" width="36" height="18" rx="4" fill="#1e2d4a"/>
+          <text x="86" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#68B21B">Node</text>
+          <rect x="110" y="352" width="30" height="18" rx="4" fill="#1e2d4a"/>
+          <text x="125" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#E8C96A">Swift</text>
+          <rect x="26" y="376" width="34" height="18" rx="4" fill="#1e2d4a"/>
+          <text x="43" y="388" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#4479A1">SQL</text>
+          <rect x="66" y="376" width="36" height="18" rx="4" fill="#1e2d4a"/>
+          <text x="84" y="388" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#FF9900">AWS</text>
+          <rect x="108" y="376" width="34" height="18" rx="4" fill="#1e2d4a"/>
+          <text x="125" y="388" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8">Next.js</text>
+
+          <!-- Main area: Code editor panel -->
+          <rect x="178" y="64" width="200" height="148" rx="10" fill="#080a12" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.5"/>
+          <!-- Editor tab -->
+          <rect x="178" y="64" width="200" height="30" rx="10" fill="#0a0e1a"/>
+          <rect x="178" y="74" width="200" height="20" fill="#0a0e1a"/>
+          <rect x="186" y="68" width="72" height="20" rx="4" fill="#1e2d4a"/>
+          <text x="200" y="81" font-family="'DM Sans', sans-serif" font-size="8" fill="#C9A84C">app.js</text>
+          <circle cx="248" cy="78" r="5" fill="#3DAA7E" fill-opacity="0.3"/>
+          <circle cx="248" cy="78" r="2" fill="#3DAA7E"/>
+
+          <!-- Code lines -->
+          <text x="190" y="110" font-family="monospace" font-size="9" fill="#4A8FE8">const</text>
+          <text x="222" y="110" font-family="monospace" font-size="9" fill="#F4F2EE"> App </text>
+          <text x="244" y="110" font-family="monospace" font-size="9" fill="#8A90A8">= () =&gt;</text>
+          <text x="286" y="110" font-family="monospace" font-size="9" fill="#C9A84C"> {'{'}</text>
+
+          <text x="196" y="124" font-family="monospace" font-size="9" fill="#4A8FE8">  return</text>
+          <text x="240" y="124" font-family="monospace" font-size="9" fill="#3DAA7E"> &lt;View&gt;</text>
+          <text x="280" y="124" font-family="monospace" font-size="9" fill="#8A90A8">...</text>
+
+          <text x="196" y="138" font-family="monospace" font-size="9" fill="#C9A84C">  // Build</text>
+          <text x="244" y="138" font-family="monospace" font-size="9" fill="#8A90A8"> world-class</text>
+          <text x="196" y="152" font-family="monospace" font-size="9" fill="#C9A84C">  // software</text>
+          <!-- Cursor -->
+          <rect x="265" y="142" width="2" height="11" fill="#C9A84C" class="cursor-blink"/>
+
+          <text x="190" y="166" font-family="monospace" font-size="9" fill="#C9A84C">{'}'}</text>
+          <text x="200" y="180" font-family="monospace" font-size="9" fill="#3DAA7E">export default</text>
+          <text x="302" y="180" font-family="monospace" font-size="9" fill="#F4F2EE"> App</text>
+          <text x="318" y="180" font-family="monospace" font-size="9" fill="#8A90A8">;</text>
+
+          <!-- Mobile mockup panel -->
+          <rect x="392" y="64" width="112" height="220" rx="12" fill="#080a12" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.5"/>
+          <!-- Mobile frame -->
+          <rect x="400" y="72" width="96" height="188" rx="10" fill="#0d1020" stroke="#1e2d4a" stroke-width="1"/>
+          <!-- Notch -->
+          <rect x="424" y="74" width="48" height="8" rx="4" fill="#080a12"/>
+          <!-- Status bar icons -->
+          <circle cx="410" cy="78" r="2" fill="#3DAA7E"/>
+          <rect x="446" y="76" width="12" height="4" rx="1" fill="#8A90A8" fill-opacity="0.4"/>
+          <!-- App UI in mobile -->
+          <rect x="408" y="88" width="80" height="24" rx="6" fill="#1a2340"/>
+          <circle cx="420" cy="100" r="6" fill="#C9A84C" fill-opacity="0.8"/>
+          <rect x="432" y="96" width="40" height="5" rx="2" fill="#ffffff" fill-opacity="0.15"/>
+          <rect x="432" y="104" width="28" height="4" rx="2" fill="#8A90A8" fill-opacity="0.3"/>
+          <!-- List items -->
+          <rect x="408" y="118" width="80" height="18" rx="4" fill="#111525"/>
+          <rect x="414" y="123" width="40" height="4" rx="2" fill="#4A8FE8" fill-opacity="0.5"/>
+          <rect x="408" y="140" width="80" height="18" rx="4" fill="#111525"/>
+          <rect x="414" y="145" width="52" height="4" rx="2" fill="#C9A84C" fill-opacity="0.4"/>
+          <rect x="408" y="162" width="80" height="18" rx="4" fill="#111525"/>
+          <rect x="414" y="167" width="34" height="4" rx="2" fill="#8A90A8" fill-opacity="0.35"/>
+          <!-- CTA button -->
+          <rect x="408" y="186" width="80" height="22" rx="6" fill="#C9A84C"/>
+          <text x="448" y="200" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" font-weight="600" fill="#080a12">Launch App</text>
+          <!-- Bottom nav -->
+          <rect x="408" y="215" width="80" height="22" rx="4" fill="#0a0e1a"/>
+          <circle cx="428" cy="226" r="4" fill="#C9A84C"/>
+          <circle cx="448" cy="226" r="4" fill="#8A90A8" fill-opacity="0.4"/>
+          <circle cx="468" cy="226" r="4" fill="#8A90A8" fill-opacity="0.4"/>
+
+          <!-- Analytics chart panel -->
+          <rect x="178" y="224" width="200" height="148" rx="10" fill="#080a12" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.5"/>
+          <text x="192" y="246" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" letter-spacing="0.12em">USER GROWTH</text>
+          <!-- Bar chart -->
+          <!-- Bars -->
+          <rect x="196" y="310" width="18" height="40" rx="3" fill="url(#barBlue)" fill-opacity="0.5"/>
+          <rect x="220" y="295" width="18" height="55" rx="3" fill="url(#barBlue)" fill-opacity="0.6"/>
+          <rect x="244" y="278" width="18" height="72" rx="3" fill="url(#barBlue)" fill-opacity="0.7"/>
+          <rect x="268" y="260" width="18" height="90" rx="3" fill="url(#barGold)" fill-opacity="0.8"/>
+          <rect x="292" y="245" width="18" height="105" rx="3" fill="url(#barGold)"/>
+          <rect x="316" y="255" width="18" height="95" rx="3" fill="url(#barGold)" fill-opacity="0.9"/>
+          <!-- Baseline -->
+          <line x1="192" y1="352" x2="348" y2="352" stroke="#8A90A8" stroke-width="0.4" stroke-opacity="0.3"/>
+          <!-- Month labels -->
+          <text x="205" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#8A90A8" fill-opacity="0.6">Jul</text>
+          <text x="229" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#8A90A8" fill-opacity="0.6">Aug</text>
+          <text x="253" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#8A90A8" fill-opacity="0.6">Sep</text>
+          <text x="277" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#C9A84C" fill-opacity="0.8">Oct</text>
+          <text x="301" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#C9A84C" fill-opacity="0.8">Nov</text>
+          <text x="325" y="364" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7" fill="#C9A84C" fill-opacity="0.8">Dec</text>
+          <!-- Growth label -->
+          <text x="340" y="248" font-family="'DM Sans', sans-serif" font-size="8" fill="#3DAA7E">↑ 43%</text>
+
+          <!-- Design panel -->
+          <rect x="392" y="296" width="112" height="116" rx="10" fill="#080a12" stroke="#ffffff" stroke-opacity="0.07" stroke-width="0.5"/>
+          <text x="406" y="316" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" letter-spacing="0.1em">DESIGN SYSTEM</text>
+          <!-- Color swatches -->
+          <circle cx="410" cy="334" r="9" fill="#C9A84C"/>
+          <circle cx="430" cy="334" r="9" fill="#4A8FE8"/>
+          <circle cx="450" cy="334" r="9" fill="#3DAA7E"/>
+          <circle cx="470" cy="334" r="9" fill="#1e2d4a" stroke="#8A90A8" stroke-opacity="0.3" stroke-width="0.5"/>
+          <!-- Typography scale -->
+          <text x="406" y="358" font-family="'Instrument Serif', serif" font-size="14" fill="#F4F2EE" fill-opacity="0.9">Aa</text>
+          <text x="430" y="354" font-family="'DM Sans', sans-serif" font-size="10" fill="#F4F2EE" fill-opacity="0.7">Bb</text>
+          <text x="450" y="352" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8">Cc</text>
+          <!-- Component hint -->
+          <rect x="406" y="368" width="88" height="16" rx="4" fill="#C9A84C"/>
+          <text x="450" y="379" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#080a12">Button Component</text>
+
+          <!-- Bottom bar: Build status -->
+          <rect x="0" y="410" width="520" height="30" fill="#0a0e1a"/>
+          <circle cx="20" cy="425" r="4" fill="#3DAA7E"/>
+          <text x="30" y="429" font-family="'DM Sans', sans-serif" font-size="8" fill="#3DAA7E">Build Successful</text>
+          <text x="130" y="429" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" fill-opacity="0.5">·  No errors  ·  3 warnings</text>
+          <text x="380" y="429" font-family="'DM Sans', sans-serif" font-size="8" fill="#8A90A8" fill-opacity="0.5">v2.4.1 · main</text>
+          <circle cx="498" cy="425" r="4" fill="#C9A84C" fill-opacity="0.8" class="node-pulse-2"/>
+        </svg>
+
+        <!-- Overlay gradient at bottom for blend -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to top,var(--ink-3),transparent);pointer-events:none;"></div>
+      </div>
+
+      <!-- Right: brief intro text -->
+      <div>
+        <div class="section-tag">End-to-End Capabilities</div>
+        <h3 style="font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);color:var(--white);font-weight:400;line-height:1.2;margin-bottom:20px;">
+          One team. Every discipline. <em style="font-style:italic;color:var(--gold-lt);">Zero gaps.</em>
+        </h3>
+        <p style="font-size:0.9rem;line-height:1.8;color:var(--slate);font-weight:300;margin-bottom:28px;">
+          We combine product strategy, world-class design, and engineering excellence into a single cohesive team — so your product gets built right, the first time.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:var(--slate-lt);">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            Validated ideas — not guesswork
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:var(--slate-lt);">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            Designed for real users from day one
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:var(--slate-lt);">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            Production-grade, scalable code
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:0.85rem;color:var(--slate-lt);">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            Shipped on time, every time
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services grid -->
+    <div class="services-grid" data-reveal data-delay="2">
       <div class="service-item">
         <div class="service-num">01</div>
         <div class="service-icon-wrap"><i class="fas fa-lightbulb"></i></div>
@@ -888,9 +1538,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     AFRICAN FOUNDERS / MISSION
-═══════════════════════════════ -->
+<!-- ABOUT / MISSION -->
 <section class="section" id="about">
   <div class="container">
     <div class="two-col">
@@ -967,9 +1615,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     PROCESS / TIMELINE
-═══════════════════════════════ -->
+<!-- PROCESS / TIMELINE -->
 <section class="section" style="background:var(--ink-2)">
   <div class="container">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
@@ -1027,9 +1673,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     PORTFOLIO
-═══════════════════════════════ -->
+<!-- PORTFOLIO -->
 <section class="section" id="work">
   <div class="container">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px">
@@ -1091,9 +1735,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     WHY CHOOSE
-═══════════════════════════════ -->
+<!-- WHY CHOOSE -->
 <section class="section" style="background:var(--ink-2)">
   <div class="container">
     <div class="two-col">
@@ -1144,9 +1786,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     INDUSTRIES
-═══════════════════════════════ -->
+<!-- INDUSTRIES -->
 <section class="section">
   <div class="container">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:20px">
@@ -1177,9 +1817,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     PACKAGES / PRICING
-═══════════════════════════════ -->
+<!-- PACKAGES / PRICING -->
 <section class="section" style="background:var(--ink-2)" id="pricing">
   <div class="container">
     <div style="text-align:center;max-width:560px;margin:0 auto 56px">
@@ -1188,7 +1826,6 @@
       <p class="section-lead" data-reveal data-delay="2" style="margin:0 auto;text-align:center">One complete venture design package — all deliverables included, no hidden fees.</p>
     </div>
     <div class="packages-grid" data-reveal data-delay="2">
-      <!-- Starter -->
       <div class="package-card">
         <div class="package-header">
           <div class="package-name">Starter</div>
@@ -1207,7 +1844,6 @@
           <a href="#contact" class="btn-pkg btn-pkg-outline">Get Started</a>
         </div>
       </div>
-      <!-- Growth (featured) -->
       <div class="package-card featured">
         <div class="package-header">
           <div class="package-badge">Most Popular</div>
@@ -1227,7 +1863,6 @@
           <a href="#contact" class="btn-pkg btn-pkg-gold">Start with Growth</a>
         </div>
       </div>
-      <!-- Enterprise -->
       <div class="package-card">
         <div class="package-header">
           <div class="package-name">Enterprise</div>
@@ -1254,9 +1889,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     TESTIMONIALS
-═══════════════════════════════ -->
+<!-- TESTIMONIALS -->
 <section class="section">
   <div class="container">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px">
@@ -1339,9 +1972,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     TEAM
-═══════════════════════════════ -->
+<!-- TEAM -->
 <section class="section" style="background:var(--ink-2)">
   <div class="container">
     <div style="text-align:center;margin-bottom:52px">
@@ -1386,9 +2017,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     GLOBAL REACH
-═══════════════════════════════ -->
+<!-- GLOBAL REACH -->
 <section class="section">
   <div class="container">
     <div class="two-col">
@@ -1417,9 +2046,7 @@
 <hr class="rule">
 
 
-<!-- ═══════════════════════════════
-     CTA
-═══════════════════════════════ -->
+<!-- CTA -->
 <div class="cta-section" id="contact">
   <div class="container cta-inner" data-reveal>
     <div class="section-tag" style="justify-content:center">Get Started</div>
@@ -1449,9 +2076,7 @@
 </div>
 
 
-<!-- ═══════════════════════════════
-     FOOTER
-═══════════════════════════════ -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-top">
@@ -1510,7 +2135,7 @@
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 30);
-  });
+  }, { passive: true });
 
   /* ─── MOBILE DRAWER ─── */
   const overlay = document.getElementById('mobile-overlay');
@@ -1532,12 +2157,10 @@
     const item = header.parentElement;
     const body = item.querySelector('.acc-body');
     const isOpen = item.classList.contains('open');
-    // Close all
     document.querySelectorAll('.acc-item').forEach(i => {
       i.classList.remove('open');
       i.querySelector('.acc-body').style.maxHeight = '0';
     });
-    // Open clicked if it was closed
     if (!isOpen) {
       item.classList.add('open');
       body.style.maxHeight = body.scrollHeight + 'px';
@@ -1550,40 +2173,58 @@
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('revealed'); revealObserver.unobserve(e.target); }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => revealObserver.observe(el));
 
   /* ─── STAT COUNTERS ─── */
   const counters = [
-    { id: 'count-companies', target: 500, suffix: '' },
-    { id: 'count-sat', target: 98, suffix: '' },
-    { id: 'count-users', target: 50, suffix: '' },
+    { id: 'count-companies', target: 500 },
+    { id: 'count-sat', target: 98 },
+    { id: 'count-users', target: 50 },
   ];
   let counted = false;
   const statEl = document.getElementById('count-companies');
-  const statObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !counted) {
-      counted = true;
-      counters.forEach(({ id, target }) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        let current = 0;
-        const step = target / 60;
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = Math.floor(current);
-          if (current >= target) clearInterval(timer);
-        }, 22);
-      });
-    }
-  }, { threshold: 0.4 });
-  if (statEl) statObserver.observe(statEl.closest('.stats-band') || statEl);
+  const statBand = statEl ? statEl.closest('.stats-band') : null;
+  if (statBand) {
+    const statObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !counted) {
+        counted = true;
+        counters.forEach(({ id, target }) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          let current = 0;
+          const step = target / 60;
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = Math.floor(current);
+            if (current >= target) clearInterval(timer);
+          }, 22);
+        });
+      }
+    }, { threshold: 0.4 });
+    statObserver.observe(statBand);
+  }
 
   /* ─── OPEN FIRST ACCORDION ─── */
   document.addEventListener('DOMContentLoaded', () => {
     const first = document.querySelector('.acc-item.open .acc-body');
     if (first) first.style.maxHeight = first.scrollHeight + 'px';
   });
+
+  /* ─── PROCESS GRID RESPONSIVE ─── */
+  function handleProcessGrid() {
+    const grid = document.querySelector('.section [style*="grid-template-columns:1fr 1fr"]');
+    if (!grid) return;
+    if (window.innerWidth < 768) {
+      grid.style.gridTemplateColumns = '1fr';
+      grid.style.gap = '40px';
+    } else {
+      grid.style.gridTemplateColumns = '1fr 1fr';
+      grid.style.gap = '80px';
+    }
+  }
+  window.addEventListener('resize', handleProcessGrid, { passive: true });
+  handleProcessGrid();
 </script>
 </body>
 </html>
